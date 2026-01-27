@@ -1,0 +1,6 @@
+  "name": "IPL Analytics Pro",
+  "description": "A high-performance sports analytics dashboard for the Indian Premier League, featuring AI-driven insights, player comparisons, and animated performance metrics.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
