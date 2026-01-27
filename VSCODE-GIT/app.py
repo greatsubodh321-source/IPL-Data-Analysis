@@ -226,3 +226,59 @@ st.markdown("""
     <p>ProphetAI © 2024 | Data-backed valuations for informational purposes only</p>
 </div>
 """, unsafe_allow_html=True)
+# OLD (Broken)
+model = genai.GenerativeModel('gemini-1.5-flash')
+
+# NEW (Fixed)
+model = genai.GenerativeModel('gemini-3-flash-preview')
+import streamlit as st
+
+def add_premium_styling():
+    st.markdown(
+        """
+        <style>
+        /* Background Image with Overlay */
+        .stApp {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80");
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        /* Smooth Fade-in Animation for the whole page */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .main .block-container {
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        /* Glassmorphism effect for the sidebar */
+        section[data-testid="stSidebar"] {
+            background-color: rgba(20, 20, 25, 0.8) !important;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Customizing the "Get Estimated Price" button for a premium look */
+        div.stButton > button:first-child {
+            background: linear-gradient(45deg, #FF4B4B, #FF7E7E);
+            border: none;
+            color: white;
+            padding: 0.6rem 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 75, 75, 0.3);
+        }
+
+        div.stButton > button:first-child:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(255, 75, 75, 0.5);
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+# Call the function at the very top of your app
+add_premium_styling()
