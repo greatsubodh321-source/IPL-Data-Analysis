@@ -4,6 +4,127 @@ import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
 from datetime import datetime
+import streamlit as st
+import pandas as pd
+import plotly.express as px
+import requests
+from streamlit_lottie import st_lottie
+from streamlit_option_menu import option_menu
+
+# --- PAGE CONFIG ---
+st.set_page_config(page_title="IPL Analytics Pro", page_icon="🏏", layout="wide")
+
+# --- 1. SETUP ANIMATIONS & ASSETS ---
+def load_lottieurl(url):
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
+
+# Load a Cricket or Data Analysis Lottie Animation
+lottie_cricket = load_lottieurl("https://assets10.lottiefiles.com/packages/lf20_w51pcehl.json") # Example: Data Dashboard Animation
+
+# --- 2. INJECT CUSTOM CSS (The "Impressive" Part) ---
+# This styles the buttons, cards, and sidebar to look premium
+st.markdown("""
+    <style>
+    /* Gradient Button Style */
+    div.stButton > button {
+        background: linear-gradient(45deg, #FF4B2B, #FF416C);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 10px 24px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        box-shadow: 0px 4px 15px rgba(255, 75, 43, 0.4);
+    }
+    div.stButton > button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0px 6px 20px rgba(255, 75, 43, 0.6);
+        background: linear-gradient(45deg, #FF416C, #FF4B2B);
+        color: white;
+    }
+
+    /* Metric Card Styling */
+    div[data-testid="stMetric"] {
+        background-color: #1E1E1E;
+        padding: 20px;
+        border-radius: 15px;
+        border-left: 5px solid #FF4B2B;
+        box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        transition: transform 0.2s;
+    }
+    div[data-testid="stMetric"]:hover {
+        transform: scale(1.02);
+    }
+    
+    /* Remove default top padding */
+    .block-container {
+        padding-top: 2rem;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+# --- 3. MODERN SIDEBAR ---
+with st.sidebar:
+    st.title("🏏 IPL Analytics Pro")
+    
+    # Replace standard Radio buttons with this Menu
+    selected = option_menu(
+        menu_title="Main Menu", 
+        options=["Dashboard", "Player Comparison", "Team Analysis", "Dream Team", "AI Insights"], 
+        icons=["speedometer2", "person", "people", "trophy", "robot"], 
+        menu_icon="cast", 
+        default_index=0,
+        styles={
+            "container": {"padding": "5!important", "background-color": "#0E1117"},
+            "icon": {"color": "#FF4B2B", "font-size": "25px"}, 
+            "nav-link": {"font-size": "16px", "text-align": "left", "margin":"0px", "--hover-color": "#262730"},
+            "nav-link-selected": {"background-color": "#FF4B2B"},
+        }
+    )
+    
+    st.markdown("---")
+    st.caption(f"📅 Last Updated: 2024")
+
+# --- 4. MAIN DASHBOARD LAYOUT ---
+
+# Header Section with Animation
+col1, col2 = st.columns([3, 1])
+with col1:
+    st.title("IPL 2024 Dashboard")
+    st.markdown("### *Deep Dive into Indian Premier League Stats*")
+with col2:
+    if lottie_cricket:
+        st_lottie(lottie_cricket, height=150, key="coding")
+
+st.markdown("---")
+
+# --- INSERT YOUR EXISTING LOGIC BELOW ---
+# Only run the code for the selected tab
+if selected == "Dashboard":
+    # ----------------------------------------------------
+    # PASTE YOUR EXISTING DASHBOARD METRICS CODE HERE
+    # ----------------------------------------------------
+    
+    # Example of how to structure your metrics to use the new CSS:
+    m1, m2, m3, m4 = st.columns(4)
+    m1.metric("Total Teams", "10", "Wait for Auction")
+    m2.metric("Total Matches", "74", "+0")
+    m3.metric("Seasons", "16", "2008-2024")
+    m4.metric("Fan Engagement", "98%", "+5%")
+    
+    # Create the button to trigger detailed view
+    if st.button("Download Full Report 📥"):
+        st.balloons()
+        st.success("Report Generated!")
+
+elif selected == "Player Comparison":
+    st.header("Player Comparison Module")
+    # Paste your Player Comparison code here...
+
+# ... and so on for other tabs
 
 # Page configuration
 st.set_page_config(
